@@ -33,5 +33,52 @@ namespace BookManagementWebApplication.Controllers
             return Ok(AllBookDetails);
 
         }
+        [HttpDelete]
+        public IActionResult DeleteBookById(int BookId)
+        {
+            var delBookByID = iBookService.DeleteBook(BookId);
+            if (delBookByID)
+            {
+                return Ok(new
+                {
+                    message ="Book deleted Successfully"
+                });
+            }
+            else
+            {
+                return NotFound();
+            }
+        }
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult getSingleBooKByID(int BookId)
+        {
+            var getBook = iBookService.GetBookByID(BookId);
+            if (getBook != null)
+            {
+                return Ok(getBook);
+            }
+            else
+            {
+                return Ok(new
+                {
+                    message = "Invalid BookId"
+                });
+            }
+        }
+        [HttpPut]
+        public IActionResult putMethodById(int Id, AddUpdateBook updBook)
+        {
+            var updateBook=iBookService.UpdateBook(Id, updBook);
+            if(updateBook != null)
+            {
+                return Ok(updateBook);
+            }
+            return Ok(new
+            {
+                message= "Book ID not Found"
+            });
+        }
+
     }
 }
