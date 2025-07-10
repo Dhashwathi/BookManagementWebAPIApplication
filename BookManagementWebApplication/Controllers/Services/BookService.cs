@@ -57,6 +57,30 @@ namespace BookManagementWebApplication.Controllers.Services
         public List<Book> getBookList() { 
             return BookList.ToList();  //returning as List
         }
+        //implementing Get Book By ID method
+        public Book GetBookByID(int inputbookId)
+        {
+            var selectBook = BookList.FirstOrDefault(b => b.BookId == inputbookId);
+            return selectBook;
+        }
+        //implementing Update Book method
+        public Book UpdateBook(int inputBookId, AddUpdateBook AddObj)
+        {
+            var selectBook = BookList.FirstOrDefault(b => b.BookId == inputBookId);
+            if (selectBook != null)
+            {
+                selectBook.BookTitle = AddObj.BookTitle;
+                selectBook.Author = AddObj.Author;
+                selectBook.YearPublished = AddObj.YearPublished;
+                selectBook.BookPrice = AddObj.BookPrice;
+                selectBook.BookGenre = AddObj.BookGenre;
+                return selectBook;
+            }
+            else
+            {
+                return null;
+            }
+        }
         //implementing delete book method
         public bool DeleteBook(int inputBookId)
         {
@@ -67,30 +91,6 @@ namespace BookManagementWebApplication.Controllers.Services
                 return true;
             }
             return false;
-        }
-        //implementing Get Book By ID method
-        public Book GetBookByID(int inputbookId)
-        {
-            var selectBook=BookList.FirstOrDefault(b=>b.BookId == inputbookId);
-            return selectBook;
-        }
-        //implementing Update Book method
-        public Book UpdateBook(int  inputBookId,AddUpdateBook AddObj)
-        {
-            var selectBook = BookList.FirstOrDefault(b => b.BookId == inputBookId);
-            if(selectBook!= null)
-            {
-                selectBook.BookTitle=AddObj.BookTitle;
-                selectBook.Author=AddObj.Author;
-                selectBook.YearPublished=AddObj.YearPublished;
-                selectBook.BookPrice=AddObj.BookPrice;
-                selectBook.BookGenre=AddObj.BookGenre;
-                return selectBook;
-            }
-            else
-            {
-                return null;
-            }
         }
     }
 }

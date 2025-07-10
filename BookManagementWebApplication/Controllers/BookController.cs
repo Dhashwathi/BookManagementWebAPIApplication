@@ -33,22 +33,7 @@ namespace BookManagementWebApplication.Controllers
             return Ok(AllBookDetails);
 
         }
-        [HttpDelete]
-        public IActionResult DeleteBookById(int BookId)
-        {
-            var delBookByID = iBookService.DeleteBook(BookId);
-            if (delBookByID)
-            {
-                return Ok(new
-                {
-                    message ="Book deleted Successfully"
-                });
-            }
-            else
-            {
-                return NotFound();
-            }
-        }
+        //method for get by Book Id
         [HttpGet]
         [Route("{id}")]
         public IActionResult getSingleBooKByID(int BookId)
@@ -66,18 +51,36 @@ namespace BookManagementWebApplication.Controllers
                 });
             }
         }
+        //method for update book details
         [HttpPut]
         public IActionResult putMethodById(int Id, AddUpdateBook updBook)
         {
-            var updateBook=iBookService.UpdateBook(Id, updBook);
-            if(updateBook != null)
+            var updateBook = iBookService.UpdateBook(Id, updBook);
+            if (updateBook != null)
             {
                 return Ok(updateBook);
             }
             return Ok(new
             {
-                message= "Book ID not Found"
+                message = "Book ID not Found"
             });
+        }
+        //method for delete 
+        [HttpDelete]
+        public IActionResult DeleteBookById(int BookId)
+        {
+            var delBookByID = iBookService.DeleteBook(BookId);
+            if (delBookByID)
+            {
+                return Ok(new
+                {
+                    message = "Book deleted Successfully"
+                });
+            }
+            else
+            {
+                return NotFound();
+            }
         }
 
     }
